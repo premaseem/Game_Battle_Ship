@@ -1,6 +1,9 @@
 __author__ = 'Prem Aseem Jain'
 
+
 from random import randint
+from flask import Flask,jsonify,request,make_response
+app = Flask(__name__)
 
 board = []
 counter = 1
@@ -48,16 +51,31 @@ def evaluate():
         print "You missed my battleship! Try again"
         return True
 
+
+# used for console based gaming
+def start_game():
+    global continue_game
+    while continue_game :
+        global guess_row,guess_col,valid_input,counter
+        guess_row = int(raw_input("Guess Row:"))
+        guess_col = int(raw_input("Guess Col:"))
+        valid_input = valid_input_handler()
+        counter += 1
+        continue_game = evaluate()
+
 __init__()
 
 print ship_row
 print ship_col
 
-while continue_game :
-    guess_row = int(raw_input("Guess Row:"))
-    guess_col = int(raw_input("Guess Col:"))
-    valid_input = valid_input_handler()
-    counter += 1
-    continue_game = evaluate()
+
+
+# To run in console mode uncomment start_game() and comment server
+start_game()
+
+#if __name__ == "__main__":
+#    app.run()
+
+
 
 
